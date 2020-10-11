@@ -36,9 +36,24 @@ const MORSE_TABLE = {
     '----.':  '9',
     '-----':  '0',
 };
-
 function decode(expr) {
-    // write your solution here
+  let words = expr.match(/.{1,10}/g);
+
+  words = words.map(el => 
+    el
+      .replace(/^(00)+/g, '')
+      .replace(/11/g, '-')
+      .replace(/10/g, '.')
+      .replace(/\*\*\*\*\*\*\*\*\*\*/g, ' ')
+  );
+
+  for(let i = 0; i < words.length; i++) {
+    if(words[i] != ' ') {
+      words[i] = MORSE_TABLE[words[i]];
+    }
+  }
+
+  return words.join('');
 }
 
 module.exports = {
